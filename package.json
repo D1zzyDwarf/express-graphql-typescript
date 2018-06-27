@@ -1,0 +1,36 @@
+{
+  "name": "express-graphql-typescript",
+  "version": "1.0.0",
+  "description": "A project template with express, TypeScript and express-graphql",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "_dev:start": "tsc && cross-env node dist/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D1zzyDwarf/express-graphql-typescript.git"
+  },
+  "keywords": [
+    "typescript",
+    "express-graphql"
+  ],
+  "author": "Kai Sun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/D1zzyDwarf/express-graphql-typescript/issues"
+  },
+  "homepage": "https://github.com/D1zzyDwarf/express-graphql-typescript#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.13.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/express-graphql": "^0.6.1",
+    "@types/graphql": "^0.13.1",
+    "typescript": "^2.9.2"
+  }
+}
