@@ -1,18 +1,35 @@
 import { Application } from 'express'
-import { GraphQLSchema, GraphQLSchemaConfig } from 'graphql';
+import { GraphQLSchema } from 'graphql';
 import * as GraphQLHTTP from 'express-graphql';
+import { buildSchema } from 'type-graphql';
+import { CourseResolver, FacultyResolver } from './resolver'
 
-const schema = new GraphQLSchema({
-    query: null
-});
+export default class GraphQLRoute {
 
-const route = (app: Application) => {
-    app.use('/graphql', (req, res) => {
-        GraphQLHTTP({
-            schema: schema,
-            graphiql: true
-        })(req, res);
-    })
+    private schemaPromise: Promise<GraphQLSchema>;
+
+    constructor() {
+        this.schemaPromise = this.getSchema();
+    }
+
+    private async getSchema(): Promise<GraphQLSchema> {
+        const schema = await buildSchema({
+            resolvers: [
+                CourseResolver,
+                FacultyResolver
+            ]
+        })
+
+        return schema;
+    }
+
+    public async bindRoute(app: Application): Promise<void> {
+        const schema = await this.schemaPromise;
+        app.use('/graphql', (req, res) => {
+            GraphQLHTTP({
+                schema: schema,
+                graphiql: true
+            })(req, res);
+        })
+    }
 }
-
-export default route;

@@ -1,5 +1,5 @@
 import * as express from 'express';
-import graphQLRoute from './graphQLRoute'
+import GraphQLRoute from './graphQLRoute'
 
 export default class App {
 
@@ -7,7 +7,17 @@ export default class App {
 
     constructor() {
         this.express = express();
-        graphQLRoute(this.express);
+        this.routes();
+    }
+
+    private async routes() {
+        const graphQLRoute = new GraphQLRoute();
+        try {
+            await graphQLRoute.bindRoute(this.express);
+        } catch (ex) {
+            console.log(ex);
+        }
+        
     }
 
 }
